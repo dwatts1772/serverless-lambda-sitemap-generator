@@ -1,0 +1,34 @@
+service: serverless-lambda-sitemap-generator # NOTE: update this with your service name
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: us-west-2
+  timeout: 20
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:*"
+      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
+  vpc:
+    securityGroupIds:
+      - #{YOUR_SECURITY_GROUP}
+      - #{YOUR_SECURITY_GROUP_2}
+    subnetIds:
+      - #{YOUR_SUBNET}
+  environment:
+    DB_CLIENT: mysql
+    DB_HOST: ${ssm:prodDBHost}
+    DB_USER: ${ssm:prodDBUser}
+    DB_PASS: ${ssm:prodDBPassword}
+    DB_NAME: ${ssm:prodDBName}
+    SITEMAP_BUCKET: s3-bucket-name
+    BASE_PATH: /
+    SITE_URL: https://www.test.com
+
+functions:
+  sitemap:
+    handler: handler.sitemap
+    events:
+      - schedule: rate(24 hours)
+      - schedule: cron(0 12 * * ? *)

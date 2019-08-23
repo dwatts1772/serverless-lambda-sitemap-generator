@@ -1,0 +1,32 @@
+{
+  "name": "serverless-lambda-sitemap-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:offline": "IS_LOCAL=true; serverless invoke local --function sitemap",
+    "btoaTest":"./node_modules/.bin/btoa item:10"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.395.0",
+    "knex": "^0.16.3",
+    "lodash": "^4.17.11",
+    "mysql": "^2.16.0",
+    "mysql2": "^1.6.4",
+    "restler": "^3.4.0",
+    "s3-upload-stream": "^1.0.7",
+    "sitemap": "^2.1.0",
+    "string-to-stream": "^1.1.1",
+    "underscore": "^1.9.1",
+    "when": "^3.7.8",
+    "xmlbuilder": "^10.1.1"
+  },
+  "devDependencies": {
+    "btoa": "^1.2.1",
+    "serverless": "^1.38.0"
+  }
+}
